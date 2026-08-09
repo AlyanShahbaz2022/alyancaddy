@@ -1,8 +1,12 @@
 import { getContent } from "@/lib/getContent";
 import About from "@/components/sections/About";
+import Cta from "@/components/sections/Cta";
+import Faq from "@/components/sections/Faq";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
+import MarqueeBand from "@/components/sections/MarqueeBand";
 import Navbar from "@/components/layout/Navbar";
+import Portfolio from "@/components/sections/Portfolio";
 import Services from "@/components/sections/Services";
 import Stats from "@/components/sections/Stats";
 
@@ -25,6 +29,10 @@ export default async function Home() {
         <Stats stats={content.stats} />
         <About about={content.about} />
         <Services services={content.services} />
+        <Portfolio portfolio={content.portfolio} />
+        <MarqueeBand items={content.marquee.items} />
+        <Faq faqs={content.faqs} />
+        <Cta cta={content.cta} />
       </main>
       <Footer
         footer={content.footer}
