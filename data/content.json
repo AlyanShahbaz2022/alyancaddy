@@ -23,7 +23,7 @@
     "description": "I craft modern digital experiences, from tailored web platforms to mobile apps and Shopify stores. Thoughtfully built, performance-driven, and made to last.",
     "primaryCta": { "label": "VIEW MY WORK", "href": "#portfolio" },
     "secondaryCta": { "label": "LET'S TALK", "href": "#contact" },
-    "image": "/images/hero-placeholder.svg",
+    "image": "/images/Alyan.png",
     "cards": [
       { "id": "satisfaction", "value": "100%", "label": "Client Satisfaction" },
       { "id": "projects", "value": "10+", "label": "Projects Done" }
@@ -49,7 +49,7 @@
       "I'm a full-stack developer and digital creator who builds high-quality websites, mobile applications, and Shopify stores. From concept to deployment, I handle every line with efficiency, stunning design, and results that actually move the needle.",
       "When I'm not coding, I'm creating content that demystifies development for thousands of people because I believe technology should be accessible to everyone."
     ],
-    "image": "/images/about-placeholder.svg",
+    "image": "/images/Alyan.png",
     "ribbon": "CODE BY ALYANCADDY",
     "tags": ["REACT", "FLUTTER", "SHOPIFY", "NODE.JS"],
     "checklist": [
