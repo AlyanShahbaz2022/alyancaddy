@@ -1,0 +1,302 @@
+{
+  "site": {
+    "brand": "alyancaddy",
+    "brandDisplay": "ALYANCADDY",
+    "name": "Muhammad Umar",
+    "title": "AlyanCaddy — Muhammad Umar",
+    "description": "Full-stack developer and Shopify expert crafting modern websites, mobile apps, and content."
+  },
+  "nav": {
+    "logo": "ALYANCADDY",
+    "links": [
+      { "label": "HOME", "href": "#home" },
+      { "label": "ABOUT", "href": "#about" },
+      { "label": "SERVICES", "href": "#services" },
+      { "label": "PORTFOLIO", "href": "#portfolio" }
+    ],
+    "hire": { "label": "HIRE ME", "href": "#contact" }
+  },
+  "hero": {
+    "eyebrow": "FULL-STACK DEVELOPER & SHOPIFY EXPERT",
+    "availability": "AVAILABLE FOR WORK",
+    "headline": "CREATIVITY IN MY **BLOODLINE**",
+    "description": "I craft modern digital experiences, from tailored web platforms to mobile apps and Shopify stores. Thoughtfully built, performance-driven, and made to last.",
+    "primaryCta": { "label": "VIEW MY WORK", "href": "#portfolio" },
+    "secondaryCta": { "label": "LET'S TALK", "href": "#contact" },
+    "image": "/images/hero-placeholder.svg",
+    "cards": [
+      { "id": "satisfaction", "value": "100%", "label": "Client Satisfaction" },
+      { "id": "projects", "value": "10+", "label": "Projects Done" }
+    ]
+  },
+  "stats": {
+    "eyebrow": "MY NUMBERS",
+    "heading": "WORK SPEAKS **FOR ITSELF**",
+    "watermark": "STATS",
+    "items": [
+      { "value": 10, "suffix": "+", "label": "Happy Clients" },
+      { "value": 10, "suffix": "+", "label": "Projects Completed" },
+      { "value": 4, "suffix": "", "label": "Team Members" },
+      { "value": 2, "suffix": "", "label": "Years Experience" }
+    ]
+  },
+  "about": {
+    "eyebrow": "ABOUT ME",
+    "heading": "HI, I'M **MUHAMMAD UMAR**",
+    "name": "Muhammad Umar",
+    "location": "Islamabad / Sargodha, Pakistan",
+    "bio": [
+      "I'm a full-stack developer and digital creator who builds high-quality websites, mobile applications, and Shopify stores. From concept to deployment, I handle every line with efficiency, stunning design, and results that actually move the needle.",
+      "When I'm not coding, I'm creating content that demystifies development for thousands of people because I believe technology should be accessible to everyone."
+    ],
+    "image": "/images/about-placeholder.svg",
+    "ribbon": "CODE BY ALYANCADDY",
+    "tags": ["REACT", "FLUTTER", "SHOPIFY", "NODE.JS"],
+    "checklist": [
+      "Custom Web Development",
+      "Mobile App Development",
+      "Shopify Store Setup & Optimization",
+      "Content Creation & UGC"
+    ],
+    "cta": { "label": "WORK WITH ME", "href": "#contact" }
+  },
+  "services": {
+    "eyebrow": "WHAT I DO",
+    "heading": "SERVICES I CAN **HELP YOU WITH**",
+    "watermark": "SERVICES",
+    "intro": "From strategy to shipped product, I cover the full journey.",
+    "items": [
+      {
+        "id": "web",
+        "icon": "code",
+        "title": "Custom Web Development",
+        "description": "From designing efficient relational schemas in MySQL, to crafting responsive React frontends, I deliver end-to-end solutions.",
+        "tags": ["REACT", "NODE", "DATABASE", "AI INTEGRATION"],
+        "cta": { "label": "GET A QUOTE", "href": "#contact" }
+      },
+      {
+        "id": "app",
+        "icon": "smartphone",
+        "title": "App Development",
+        "description": "Cross-platform mobile applications built with Flutter. From splash screen to backend integration end to end.",
+        "tags": ["FLUTTER", "FIREBASE", "REST API"],
+        "cta": { "label": "GET A QUOTE", "href": "#contact" }
+      },
+      {
+        "id": "shopify",
+        "icon": "shopping-bag",
+        "title": "Shopify Store Setup",
+        "description": "Professional Shopify stores designed to convert. Theme setup, product pages, and speed optimization.",
+        "tags": ["SHOPIFY", "LIQUID", "E-COMMERCE"],
+        "cta": { "label": "GET A QUOTE", "href": "#contact" }
+      },
+      {
+        "id": "content",
+        "icon": "clapperboard",
+        "title": "Short-Form Content & UGC",
+        "description": "Strategic short-form content built for growth. Engaging videos and UGC for brands that increase reach, build trust, and convert viewers into customers.",
+        "tags": ["TIKTOK", "INSTAGRAM", "LONGFORM", "UGC ADS"],
+        "cta": { "label": "GET A QUOTE", "href": "#contact" }
+      }
+    ]
+  },
+  "portfolio": {
+    "eyebrow": "LATEST PROJECTS",
+    "heading": "PORTFOLIO TO **EXPLORE**",
+    "subtext": "Built with Precision \u2699 and Purpose \u25CF",
+    "watermark": "WORK",
+    "filters": ["ALL", "WEB DEV", "SHOPIFY", "APP DEV"],
+    "viewLabel": "VIEW",
+    "voiceLabel": "VOICE",
+    "items": [
+      {
+        "id": "cinqo",
+        "title": "CinqoMigration.com",
+        "category": "WEB DEVELOPMENT",
+        "filter": "WEB DEV",
+        "icon": "globe",
+        "gradient": "blue",
+        "watermark": "CINQOMIGRATION.COM",
+        "url": "https://cinqomigration.com",
+        "problem": "This consultancy service needed clear service journeys and faster contact flow.",
+        "built": "Dedicated service pages, responsive UI, and a simple inquiry flow.",
+        "result": "Visitors can understand services quickly and contact the team with less friction.",
+        "tech": ["REACT", "NODE", "RESPONSIVE"],
+        "wide": false,
+        "isMockup": false,
+        "liveBadge": "",
+        "image": ""
+      },
+      {
+        "id": "buildpro",
+        "title": "BuildProServicesUK.co",
+        "category": "WEB DEVELOPMENT",
+        "filter": "WEB DEV",
+        "icon": "briefcase",
+        "gradient": "emerald",
+        "watermark": "BUILDPROSERVICESUK.CO",
+        "url": "https://buildproservicesuk.co",
+        "problem": "This business needed a professional online presence for UK construction services.",
+        "built": "Service listings, project gallery structure, and contact system.",
+        "result": "A sharper business website designed to convert service visitors into leads.",
+        "tech": ["NEXT.JS", "TAILWIND", "SEO"],
+        "wide": false,
+        "isMockup": false,
+        "liveBadge": "",
+        "image": ""
+      },
+      {
+        "id": "nouravii",
+        "title": "NouraviI.co",
+        "category": "SHOPIFY",
+        "filter": "SHOPIFY",
+        "icon": "shopping-bag",
+        "gradient": "purple",
+        "watermark": "NOURAVII.CO",
+        "url": "https://nouravii.co",
+        "problem": "The brand needed a premium Shopify storefront ready for sales.",
+        "built": "Custom theme, product pages, streamlined flow, and store configuration.",
+        "result": "A clean e-commerce experience focused on trust, speed, and conversions.",
+        "tech": ["SHOPIFY", "LIQUID", "E-COMMERCE"],
+        "wide": true,
+        "isMockup": false,
+        "liveBadge": "",
+        "image": ""
+      },
+      {
+        "id": "rocart",
+        "title": "RocArt.Store",
+        "category": "SHOPIFY",
+        "filter": "SHOPIFY",
+        "icon": "palette",
+        "gradient": "orange",
+        "watermark": "ROCART.STORE",
+        "url": "https://rocart.store",
+        "problem": "The store needed a branded shopping experience that worked well on mobile.",
+        "built": "Theme customization, catalog setup, payment gateway configuration, and mobile-first layouts.",
+        "result": "A ready-to-sell Shopify store with a smoother path from browsing to checkout.",
+        "tech": ["SHOPIFY", "MOBILE-FIRST", "LIQUID"],
+        "wide": false,
+        "isMockup": false,
+        "liveBadge": "",
+        "image": ""
+      },
+      {
+        "id": "boodhdahi",
+        "title": "BoodhDahi",
+        "category": "APP DEVELOPMENT",
+        "filter": "APP DEV",
+        "icon": "smartphone",
+        "gradient": "cyan",
+        "watermark": "BOODHDAHI",
+        "url": "",
+        "problem": "Dairy delivery needed an app flow for ordering, tracking, and subscriptions.",
+        "built": "Flutter app with auth, order tracking, shop management, notifications, and delivery updates.",
+        "result": "A cross-platform delivery product ready for Android and iOS users.",
+        "tech": ["FLUTTER", "FIREBASE", "REST API"],
+        "wide": true,
+        "isMockup": true,
+        "liveBadge": "LIVE ON ANDROID & iOS",
+        "image": ""
+      }
+    ]
+  },
+  "marquee": {
+    "items": [
+      "CUSTOM WEBSITES",
+      "MOBILE APPS",
+      "SHOPIFY STORES",
+      "CONTENT CREATION",
+      "UI/UX DESIGN",
+      "ALYANCADDY"
+    ]
+  },
+  "faqs": {
+    "eyebrow": "GOT QUESTIONS",
+    "heading": "COMMON **QUESTIONS**",
+    "watermark": "FAQ",
+    "description": "Quick answers to the things clients usually ask me before we start.",
+    "cta": { "label": "ASK ME DIRECTLY", "href": "#contact" },
+    "items": [
+      {
+        "id": "time",
+        "question": "How long does a website take to build?",
+        "answer": "A standard business website usually takes 1-3 weeks, while larger or more complex builds (apps, custom platforms) can take 4-8 weeks depending on scope. I'll always give you a clear timeline before we start."
+      },
+      {
+        "id": "source",
+        "question": "Do you provide source files after the project?",
+        "answer": "Yes. Once your project is complete and fully paid, you own everything — source code, designs, and files. You can hand it to any developer or agency afterward with zero lock-in."
+      },
+      {
+        "id": "payment",
+        "question": "How do I provide project details and pay?",
+        "answer": "Just reach out through the contact form or email with a quick overview of your idea. After we agree on scope and pricing, I'll send a contract and invoice — payments are typically split into milestones (deposit + final)."
+      },
+      {
+        "id": "international",
+        "question": "Do you work with international clients?",
+        "answer": "Absolutely. I work with clients around the world on a remote basis. Time zones are coordinated so communication stays smooth, and payment can be made via bank transfer or online payment platforms."
+      },
+      {
+        "id": "redesign",
+        "question": "Can you redesign my existing website?",
+        "answer": "Yes. I can rebuild or redesign an existing site to be faster, mobile-friendly, and more conversion-focused — whether it's WordPress, plain HTML, or a Shopify store. I'll audit it first and show you what can be improved."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "START A PROJECT",
+    "heading": "LET'S BUILD SOMETHING **REMARKABLE** TOGETHER",
+    "description": "Have a project? No idea? A problem to solve? I'm all ears.",
+    "button": { "label": "START A PROJECT", "href": "#contact" }
+  },
+  "contact": {
+    "eyebrow": "LET'S TALK",
+    "heading": "LET'S **TALK**",
+    "description": "Got a project in mind or just want to say hi? Drop me a message and I'll get back to you within 24 hours.",
+    "email": "hello@alyancaddy.com",
+    "location": "Islamabad / Sargodha, Pakistan",
+    "phone": {
+      "number": "+92 300 0000000",
+      "protected": true,
+      "protectedLabel": "PHONE PROTECTED"
+    },
+    "serviceOptions": [
+      "Custom Web Development",
+      "App Development",
+      "Shopify Store Setup",
+      "Content Creation & UGC"
+    ],
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "serviceLabel": "Service Needed",
+      "servicePlaceholder": "Select a service",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "submitLabel": "SEND MESSAGE"
+    },
+    "toastSuccess": "Message sent! I'll get back to you soon.",
+    "toastError": "Something went wrong. Please try again.",
+    "sendingLabel": "SENDING..."
+  },
+  "socials": [
+    { "id": "linkedin", "name": "LinkedIn", "icon": "linkedin", "url": "https://www.linkedin.com/" },
+    { "id": "instagram", "name": "Instagram", "icon": "instagram", "url": "https://www.instagram.com/" },
+    { "id": "tiktok", "name": "TikTok", "icon": "music", "url": "https://www.tiktok.com/" }
+  ],
+  "footer": {
+    "tagline": "Full-stack developer and Shopify expert crafting modern websites, mobile apps, and content that actually converts.",
+    "services": [
+      { "label": "Web Development", "href": "#services" },
+      { "label": "App Development", "href": "#services" },
+      { "label": "Shopify Setup", "href": "#services" },
+      { "label": "Content Creation", "href": "#services" }
+    ],
+    "rights": "All rights reserved.",
+    "builtWith": "Built with ♥ using Next.js"
+  }
+}
