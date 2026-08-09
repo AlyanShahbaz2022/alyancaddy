@@ -121,7 +121,7 @@ export default function Hero({ hero, socials, name }: HeroProps) {
               alt={name}
               width={720}
               height={900}
-              preload
+              loading="eager"
               className="h-[420px] w-full object-cover sm:h-[500px] lg:h-[560px]"
             />
           </div>
