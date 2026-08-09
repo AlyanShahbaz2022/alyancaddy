@@ -1,5 +1,6 @@
 import { getContent } from "@/lib/getContent";
 import About from "@/components/sections/About";
+import Contact from "@/components/sections/Contact";
 import Cta from "@/components/sections/Cta";
 import Faq from "@/components/sections/Faq";
 import Footer from "@/components/layout/Footer";
@@ -33,6 +34,10 @@ export default async function Home() {
         <MarqueeBand items={content.marquee.items} />
         <Faq faqs={content.faqs} />
         <Cta cta={content.cta} />
+        <Contact
+          contact={content.contact}
+          socials={content.socials}
+        />
       </main>
       <Footer
         footer={content.footer}
