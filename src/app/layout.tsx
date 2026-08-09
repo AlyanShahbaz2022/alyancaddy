@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo_Black, Inter } from "next/font/google";
 import "./globals.css";
+import SiteShell from "@/components/layout/SiteShell";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-archivo-black",
@@ -44,7 +45,7 @@ export default function RootLayout(props: LayoutProps<"/">) {
     >
       <body className="bg-base font-sans text-white antialiased">
         <div aria-hidden className="noise-overlay" />
-        {props.children}
+        <SiteShell>{props.children}</SiteShell>
       </body>
     </html>
   );
