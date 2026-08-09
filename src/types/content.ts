@@ -26,6 +26,7 @@ export const iconNames = [
   "x",
   "linkedin",
   "instagram",
+  "tiktok",
   "music",
   "message-circle",
   "briefcase",

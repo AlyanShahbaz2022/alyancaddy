@@ -286,7 +286,7 @@
   "socials": [
     { "id": "linkedin", "name": "LinkedIn", "icon": "linkedin", "url": "https://www.linkedin.com/" },
     { "id": "instagram", "name": "Instagram", "icon": "instagram", "url": "https://www.instagram.com/" },
-    { "id": "tiktok", "name": "TikTok", "icon": "music", "url": "https://www.tiktok.com/" }
+    { "id": "tiktok", "name": "TikTok", "icon": "tiktok", "url": "https://www.tiktok.com/" }
   ],
   "footer": {
     "tagline": "Full-stack developer and Shopify expert crafting modern websites, mobile apps, and content that actually converts.",
