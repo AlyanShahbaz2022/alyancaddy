@@ -137,6 +137,7 @@ export const contentSchema = z.object({
     eyebrow: z.string(),
     heading: z.string(),
     watermark: z.string(),
+    description: z.array(z.string()),
     items: z.array(statSchema),
   }),
   about: z.object({

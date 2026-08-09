@@ -17,7 +17,14 @@ export default function Stats({ stats }: StatsProps) {
         watermark={stats.watermark}
         align="center"
       />
-      <div className="mt-16 grid grid-cols-2 gap-5 lg:grid-cols-4">
+      <div className="mt-6 space-y-1 text-center">
+        {stats.description.map((line) => (
+          <p key={line} className="text-sm text-muted">
+            {line}
+          </p>
+        ))}
+      </div>
+      <div className="mt-12 grid grid-cols-2 gap-5 lg:grid-cols-4">
         {stats.items.map((stat, index) => (
           <Reveal key={stat.label} delay={index * 0.08}>
             <div className="card-surface flex flex-col items-center py-8 text-center">

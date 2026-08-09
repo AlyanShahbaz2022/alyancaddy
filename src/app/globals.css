@@ -67,6 +67,13 @@ body {
   .custom-cursor-on * {
     cursor: none !important;
   }
+
+  .no-copy,
+  .no-copy * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

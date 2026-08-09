@@ -169,6 +169,7 @@ export const ADMIN_GROUPS: AdminGroup[] = [
       text("eyebrow", "Eyebrow"),
       text("heading", "Heading"),
       text("watermark", "Watermark text"),
+      list("description", "Description lines", newString, undefined, "Line"),
       list("items", "Stats", newStat, [
         number("value", "Value"),
         text("suffix", "Suffix (e.g. +)"),
