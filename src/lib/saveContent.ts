@@ -1,12 +1,17 @@
 import "server-only";
 
-import { writeFile } from "node:fs/promises";
-
+import { prisma } from "@/lib/prisma";
+import { CONTENT_ID } from "@/lib/getContent";
 import { contentSchema, type Content } from "@/types/content";
-import { CONTENT_PATH } from "@/lib/getContent";
 
 export async function saveContent(input: unknown): Promise<Content> {
   const parsed = contentSchema.parse(input);
-  await writeFile(CONTENT_PATH, JSON.stringify(parsed, null, 2), "utf8");
+
+  await prisma.siteContent.upsert({
+    where: { id: CONTENT_ID },
+    create: { id: CONTENT_ID, data: parsed },
+    update: { data: parsed },
+  });
+
   return parsed;
 }

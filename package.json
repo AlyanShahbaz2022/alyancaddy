@@ -6,10 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "node --experimental-strip-types prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "node --experimental-strip-types prisma/seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
+    "@prisma/client": "^6.2.1",
     "cloudinary": "^2.10.0",
     "framer-motion": "^13.0.0",
     "lucide-react": "^1.31.0",
@@ -29,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "postcss": "^8.5.26",
+    "prisma": "^6.2.1",
     "tailwindcss": "^3.4.19",
     "typescript": "^5"
   }
