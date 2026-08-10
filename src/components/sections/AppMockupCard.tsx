@@ -22,33 +22,45 @@ export default function AppMockupCard({ project }: AppMockupCardProps) {
       >
         <div className="relative mx-auto h-[400px] w-[200px] shrink-0 rounded-[2rem] border-[10px] border-line bg-base shadow-2xl">
           <div className="flex h-full flex-col overflow-hidden rounded-[1.35rem] bg-surface">
-            <div className="flex items-center justify-between px-4 py-3">
-              <span className="h-2 w-7 rounded-full bg-white/25" />
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              <span className="h-2 w-2 rounded-full bg-white/25" />
-            </div>
-            <div className="flex items-center gap-2 bg-black/30 px-4 py-3">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              <span className="h-2 w-24 rounded bg-white/25" />
-            </div>
-            <div className="space-y-3 p-4">
-              <div className="rounded-xl bg-card p-3">
-                <div className="h-2 w-3/4 rounded bg-white/25" />
-                <div className="mt-2 h-2 w-1/2 rounded bg-white/15" />
-              </div>
-              <div className="rounded-xl bg-card p-3">
-                <div className="h-2 w-2/3 rounded bg-white/25" />
-                <div className="mt-2 h-2 w-1/3 rounded bg-white/15" />
-              </div>
-              <div className="rounded-xl bg-card p-3">
-                <div className="h-2 w-4/5 rounded bg-white/25" />
-                <div className="mt-2 h-2 w-1/2 rounded bg-white/15" />
-              </div>
-              <div className="mt-2 flex items-center justify-center gap-2">
-                <span className="h-9 w-24 rounded-full bg-white/15" />
-                <span className="h-9 w-9 rounded-full bg-accent" />
-              </div>
-            </div>
+            {project.image ? (
+              // Uploaded app screenshot (Cloudinary).
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={project.image}
+                alt={project.title}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <>
+                <div className="flex items-center justify-between px-4 py-3">
+                  <span className="h-2 w-7 rounded-full bg-white/25" />
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  <span className="h-2 w-2 rounded-full bg-white/25" />
+                </div>
+                <div className="flex items-center gap-2 bg-black/30 px-4 py-3">
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  <span className="h-2 w-24 rounded bg-white/25" />
+                </div>
+                <div className="space-y-3 p-4">
+                  <div className="rounded-xl bg-card p-3">
+                    <div className="h-2 w-3/4 rounded bg-white/25" />
+                    <div className="mt-2 h-2 w-1/2 rounded bg-white/15" />
+                  </div>
+                  <div className="rounded-xl bg-card p-3">
+                    <div className="h-2 w-2/3 rounded bg-white/25" />
+                    <div className="mt-2 h-2 w-1/3 rounded bg-white/15" />
+                  </div>
+                  <div className="rounded-xl bg-card p-3">
+                    <div className="h-2 w-4/5 rounded bg-white/25" />
+                    <div className="mt-2 h-2 w-1/2 rounded bg-white/15" />
+                  </div>
+                  <div className="mt-2 flex items-center justify-center gap-2">
+                    <span className="h-9 w-24 rounded-full bg-white/15" />
+                    <span className="h-9 w-9 rounded-full bg-accent" />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -89,11 +101,17 @@ export default function AppMockupCard({ project }: AppMockupCardProps) {
             ))}
           </div>
 
-          {project.url ? (
-            <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-white">
+          {project.url && project.url.trim() ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor-label="OPEN"
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-80"
+            >
               Open
               <Icon name="arrow-up-right" size={16} />
-            </span>
+            </a>
           ) : null}
         </div>
       </div>

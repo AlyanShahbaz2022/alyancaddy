@@ -11,16 +11,20 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const gradient = GRADIENTS[project.gradient];
+  const hasUrl = Boolean(project.url && project.url.trim());
+  const Wrapper = hasUrl ? "a" : "div";
+  const wrapperProps = hasUrl
+    ? {
+        href: project.url,
+        target: "_blank" as const,
+        rel: "noopener noreferrer",
+        "data-cursor-label": "OPEN",
+      }
+    : {};
 
   return (
     <Card className="group overflow-hidden">
-      <a
-        href={project.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-cursor-label="OPEN"
-        className="block h-full"
-      >
+      <Wrapper {...wrapperProps} className="block h-full">
         <div
           className={cn(
             "relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br sm:h-60",
@@ -28,22 +32,37 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             gradient.to
           )}
         >
+          {project.image ? (
+            // Uploaded screenshot (Cloudinary). eslint-disable-next-line @next/next/no-img-element
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={project.image}
+              alt={project.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : null}
+
           {project.liveBadge ? (
-            <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur">
+            <span className="absolute left-4 top-4 z-10 rounded-full bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur">
               {project.liveBadge}
             </span>
           ) : null}
-          <Icon
-            name={project.icon}
-            size={58}
-            className="text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
-          />
-          <span
-            aria-hidden
-            className="absolute bottom-1 left-0 right-0 truncate px-5 font-display text-xl text-white/20"
-          >
-            {project.watermark}
-          </span>
+
+          {project.image ? null : (
+            <>
+              <Icon
+                name={project.icon}
+                size={58}
+                className="text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
+              />
+              <span
+                aria-hidden
+                className="absolute bottom-1 left-0 right-0 truncate px-5 font-display text-xl text-white/20"
+              >
+                {project.watermark}
+              </span>
+            </>
+          )}
         </div>
 
         <div className="p-6 sm:p-7">
@@ -81,14 +100,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             ))}
           </div>
 
-          {project.url ? (
+          {hasUrl ? (
             <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-accent transition-colors group-hover:text-white">
               Open
               <Icon name="arrow-up-right" size={16} />
             </span>
           ) : null}
         </div>
-      </a>
+      </Wrapper>
     </Card>
   );
 }
