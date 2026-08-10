@@ -16,3 +16,16 @@ model SiteContent {
   data      Json
   updatedAt DateTime @updatedAt
 }
+
+// A quote/contact-form submission from a site visitor.
+model Submission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  service   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

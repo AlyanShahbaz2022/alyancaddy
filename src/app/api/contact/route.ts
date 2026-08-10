@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
+import { prisma } from "@/lib/prisma";
 import { contactFormSchema } from "@/lib/contact";
 
 function escapeHtml(value: string): string {
@@ -23,22 +24,41 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   const { name, email, service, message } = parsed.data;
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL || "onboarding@resend.dev";
 
-  if (!apiKey) {
+  // 1) Persist first so a submission is never lost even if the email fails.
+  try {
+    await prisma.submission.create({
+      data: { name, email, service, message },
+    });
+  } catch (error) {
+    console.error("[contact] failed to save submission", error);
+    return Response.json(
+      { error: "Failed to save your request" },
+      { status: 500 }
+    );
+  }
+
+  // 2) Send a notification email via Gmail SMTP (best-effort).
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  const to = process.env.CONTACT_TO_EMAIL || user;
+
+  if (!user || !pass) {
     console.warn(
-      "[contact] RESEND_API_KEY is not configured. Message was received but not emailed.",
+      "[contact] Gmail SMTP not configured. Submission saved but not emailed.",
       { name, email, service }
     );
-    return Response.json({ ok: true, preview: true });
+    return Response.json({ ok: true, emailed: false });
   }
 
   try {
-    const resend = new Resend(apiKey);
-    await resend.emails.send({
-      from,
-      to: from,
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user, pass },
+    });
+    await transporter.sendMail({
+      from: `"Portfolio Inquiry" <${user}>`,
+      to,
       replyTo: email,
       subject: `New inquiry — ${service}`,
       html: `
@@ -49,9 +69,10 @@ export async function POST(request: NextRequest): Promise<Response> {
         <p>${escapeHtml(message)}</p>
       `,
     });
-    return Response.json({ ok: true });
+    return Response.json({ ok: true, emailed: true });
   } catch (error) {
+    // Submission is already saved; report success but note email failure.
     console.error("[contact] failed to send email", error);
-    return Response.json({ error: "Failed to send message" }, { status: 500 });
+    return Response.json({ ok: true, emailed: false });
   }
 }

@@ -7,6 +7,7 @@ import { LogOut, Menu, X } from "lucide-react";
 
 import type { Content } from "@/types/content";
 import AdminField from "@/components/admin/AdminField";
+import SubmissionsPanel from "@/components/admin/SubmissionsPanel";
 import Button from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { setAtPath } from "@/lib/admin/utils";
@@ -67,7 +68,12 @@ export default function AdminEditor({
     setSidebarOpen(false);
   };
 
-  const navButtons = ADMIN_GROUPS.map((g) => (
+  const navItems = [
+    ...ADMIN_GROUPS.map((g) => ({ key: g.key, label: g.label })),
+    { key: "__requests", label: "Requests" },
+  ];
+
+  const navButtons = navItems.map((g) => (
     <button
       key={g.key}
       onClick={() => selectGroup(g.key)}
@@ -177,19 +183,25 @@ export default function AdminEditor({
         ) : null}
 
         <main className="flex-1 overflow-y-auto px-4 py-5 pb-16 sm:px-5 sm:py-6">
-          <div className="max-w-2xl space-y-5">
-            {renderFields()}
-            <div className="pt-2">
-              <Button
-                onClick={save}
-                size="lg"
-                disabled={saving}
-                className="w-full sm:w-auto"
-              >
-                {saving ? "SAVING..." : "SAVE CHANGES"}
-              </Button>
+          {active === "__requests" ? (
+            <div className="max-w-2xl">
+              <SubmissionsPanel />
             </div>
-          </div>
+          ) : (
+            <div className="max-w-2xl space-y-5">
+              {renderFields()}
+              <div className="pt-2">
+                <Button
+                  onClick={save}
+                  size="lg"
+                  disabled={saving}
+                  className="w-full sm:w-auto"
+                >
+                  {saving ? "SAVING..." : "SAVE CHANGES"}
+                </Button>
+              </div>
+            </div>
+          )}
         </main>
       </div>
     </div>
