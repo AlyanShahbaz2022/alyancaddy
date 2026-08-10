@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 
 import type { Content } from "@/types/content";
 import AdminField from "@/components/admin/AdminField";
@@ -21,6 +21,7 @@ export default function AdminEditor({
   const [content, setContent] = useState<Content>(initialContent);
   const [active, setActive] = useState<string>("hero");
   const [saving, setSaving] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
@@ -61,6 +62,26 @@ export default function AdminEditor({
 
   const group = ADMIN_GROUPS.find((g) => g.key === active) ?? ADMIN_GROUPS[0];
 
+  const selectGroup = (key: string) => {
+    setActive(key);
+    setSidebarOpen(false);
+  };
+
+  const navButtons = ADMIN_GROUPS.map((g) => (
+    <button
+      key={g.key}
+      onClick={() => selectGroup(g.key)}
+      className={cn(
+        "mb-1 block w-full rounded-lg px-3 py-2 text-left text-sm font-semibold capitalize transition-colors",
+        active === g.key
+          ? "bg-accent text-black"
+          : "text-muted hover:bg-card hover:text-white"
+      )}
+    >
+      {g.label}
+    </button>
+  ));
+
   const renderFields = () => {
     if (group.key === "socials") {
       return (
@@ -88,13 +109,22 @@ export default function AdminEditor({
     <div className="flex h-screen flex-col overflow-hidden">
       <header className="z-20 shrink-0 border-b border-line bg-base/90 backdrop-blur">
         <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4">
-          <div className="min-w-0">
-            <h1 className="truncate font-display text-base uppercase tracking-wide sm:text-lg">
-              Content Editor
-            </h1>
-            <p className="hidden text-xs text-muted sm:block">
-              Edits save to the database and update the live site
-            </p>
+          <div className="flex min-w-0 items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Open sections menu"
+              className="shrink-0 text-muted transition-colors hover:text-white lg:hidden"
+            >
+              <Menu size={22} />
+            </button>
+            <div className="min-w-0">
+              <h1 className="truncate font-display text-base uppercase tracking-wide sm:text-lg">
+                Content Editor
+              </h1>
+              <p className="hidden text-xs text-muted sm:block">
+                Edits save to the database and update the live site
+              </p>
+            </div>
           </div>
           <div className="flex shrink-0 items-center gap-3 sm:gap-4">
             <Link
@@ -116,41 +146,37 @@ export default function AdminEditor({
       </header>
 
       <div className="flex min-h-0 flex-1">
+        {/* Desktop sidebar */}
         <nav className="hidden w-52 shrink-0 overflow-y-auto border-r border-line p-3 lg:block">
-          {ADMIN_GROUPS.map((g) => (
-            <button
-              key={g.key}
-              onClick={() => setActive(g.key)}
-              className={cn(
-                "mb-1 block w-full rounded-lg px-3 py-2 text-left text-sm font-semibold capitalize transition-colors",
-                active === g.key
-                  ? "bg-accent text-black"
-                  : "text-muted hover:bg-card hover:text-white"
-              )}
-            >
-              {g.label}
-            </button>
-          ))}
+          {navButtons}
         </nav>
 
-        <main className="flex-1 overflow-y-auto px-4 py-5 pb-16 sm:px-5 sm:py-6">
-          <div className="mb-5 lg:hidden">
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted">
-              Section
-            </label>
-            <select
-              value={active}
-              onChange={(event) => setActive(event.target.value)}
-              className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-white"
-            >
-              {ADMIN_GROUPS.map((g) => (
-                <option key={g.key} value={g.key}>
-                  {g.label}
-                </option>
-              ))}
-            </select>
+        {/* Mobile drawer + backdrop */}
+        {sidebarOpen ? (
+          <div className="fixed inset-0 z-40 lg:hidden">
+            <div
+              className="absolute inset-0 bg-black/60"
+              onClick={() => setSidebarOpen(false)}
+            />
+            <nav className="absolute inset-y-0 left-0 flex w-64 max-w-[80%] flex-col overflow-y-auto border-r border-line bg-base p-3 shadow-2xl">
+              <div className="mb-2 flex items-center justify-between px-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted">
+                  Sections
+                </span>
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  aria-label="Close menu"
+                  className="text-muted transition-colors hover:text-white"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              {navButtons}
+            </nav>
           </div>
+        ) : null}
 
+        <main className="flex-1 overflow-y-auto px-4 py-5 pb-16 sm:px-5 sm:py-6">
           <div className="max-w-2xl space-y-5">
             {renderFields()}
             <div className="pt-2">
