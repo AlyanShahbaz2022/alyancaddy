@@ -19,6 +19,8 @@ export type FieldDef = {
   factory?: () => unknown;
   placeholder?: string;
   itemLabel?: string;
+  /** Cloudinary sub-folder for image fields (e.g. "profile", "portfolio"). */
+  folder?: string;
 };
 
 export type AdminGroup = {
@@ -51,10 +53,11 @@ const boolean = (key: string, label: string): FieldDef => ({
   label,
   type: "boolean",
 });
-const image = (key: string, label: string): FieldDef => ({
+const image = (key: string, label: string, folder = "profile"): FieldDef => ({
   key,
   label,
   type: "image",
+  folder,
 });
 const select = (
   key: string,
@@ -155,7 +158,7 @@ export const ADMIN_GROUPS: AdminGroup[] = [
       area("description", "Description"),
       object("primaryCta", "Primary button", linkFields),
       object("secondaryCta", "Secondary button", linkFields),
-      image("image", "Hero photo"),
+      image("image", "Hero photo", "profile"),
       list("cards", "Floating badges", newHeroCard, [
         text("value", "Value"),
         text("label", "Label"),
@@ -186,7 +189,7 @@ export const ADMIN_GROUPS: AdminGroup[] = [
       text("name", "Name"),
       text("location", "Location"),
       list("bio", "Bio paragraphs", newString, undefined, "Paragraph"),
-      image("image", "Photo"),
+      image("image", "Photo", "profile"),
       text("ribbon", "Ribbon badge"),
       list("tags", "Tech pills", newString, undefined, "Tag"),
       list("checklist", "Checklist", newString, undefined, "Item"),
@@ -236,7 +239,7 @@ export const ADMIN_GROUPS: AdminGroup[] = [
         boolean("wide", "Full-width card"),
         boolean("isMockup", "Show app mockup"),
         text("liveBadge", "Live badge (e.g. LIVE ON...)"),
-        image("image", "Screenshot"),
+        image("image", "Screenshot", "portfolio"),
       ], "Project"),
     ],
   },

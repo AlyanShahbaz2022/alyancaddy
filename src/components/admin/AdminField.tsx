@@ -149,13 +149,17 @@ function ImageField({
   onChange,
 }: AdminFieldProps) {
   const [uploading, setUploading] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const toast = useToast();
 
-  const onFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const upload = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose an image file");
+      return;
+    }
     const formData = new FormData();
     formData.append("file", file);
+    if (def.folder) formData.append("folder", def.folder);
     setUploading(true);
     try {
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
@@ -167,8 +171,21 @@ function ImageField({
       toast.error("Image upload failed");
     } finally {
       setUploading(false);
-      event.target.value = "";
     }
+  };
+
+  const onFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) await upload(file);
+    event.target.value = "";
+  };
+
+  const onDrop = async (event: React.DragEvent) => {
+    event.preventDefault();
+    setDragging(false);
+    if (uploading) return;
+    const file = event.dataTransfer.files?.[0];
+    if (file) await upload(file);
   };
 
   return (
@@ -176,19 +193,52 @@ function ImageField({
       <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted">
         {def.label}
       </span>
-      <div className="flex gap-2">
+
+      <label
+        onDragOver={(event) => {
+          event.preventDefault();
+          if (!dragging) setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={onDrop}
+        className={cn(
+          "flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed px-4 py-6 text-center transition-colors",
+          dragging
+            ? "border-accent bg-accent/10 text-accent"
+            : "border-line bg-surface text-muted hover:border-accent hover:text-accent"
+        )}
+      >
+        {uploading ? (
+          <span className="text-xs font-bold uppercase tracking-wider">
+            Uploading…
+          </span>
+        ) : (
+          <>
+            <span className="text-xs font-bold uppercase tracking-wider">
+              Drag &amp; drop an image
+            </span>
+            <span className="text-[11px] normal-case tracking-normal">
+              or click to browse
+            </span>
+          </>
+        )}
         <input
-          type="text"
-          value={String(value ?? "")}
-          placeholder="Paste an image URL or upload one"
-          onChange={(event) => onChange(path, event.target.value)}
-          className={inputClass}
+          type="file"
+          accept="image/*"
+          onChange={onFile}
+          className="hidden"
+          disabled={uploading}
         />
-        <label className="flex shrink-0 cursor-pointer items-center rounded-lg border border-line bg-surface px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-accent hover:text-accent">
-          {uploading ? "..." : "Upload"}
-          <input type="file" accept="image/*" onChange={onFile} className="hidden" />
-        </label>
-      </div>
+      </label>
+
+      <input
+        type="text"
+        value={String(value ?? "")}
+        placeholder="…or paste an image URL"
+        onChange={(event) => onChange(path, event.target.value)}
+        className={cn(inputClass, "mt-2")}
+      />
+
       {value ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
