@@ -85,8 +85,8 @@ export default function AdminEditor({
   };
 
   return (
-    <div className="min-h-screen pb-16">
-      <header className="sticky top-0 z-20 border-b border-line bg-base/90 backdrop-blur">
+    <div className="flex h-screen flex-col overflow-hidden">
+      <header className="z-20 shrink-0 border-b border-line bg-base/90 backdrop-blur">
         <div className="flex items-center justify-between px-5 py-4">
           <div>
             <h1 className="font-display text-lg uppercase tracking-wide">
@@ -114,8 +114,8 @@ export default function AdminEditor({
         </div>
       </header>
 
-      <div className="flex">
-        <nav className="hidden w-52 shrink-0 border-r border-line p-3 lg:block">
+      <div className="flex min-h-0 flex-1">
+        <nav className="hidden w-52 shrink-0 overflow-y-auto border-r border-line p-3 lg:block">
           {ADMIN_GROUPS.map((g) => (
             <button
               key={g.key}
@@ -132,7 +132,7 @@ export default function AdminEditor({
           ))}
         </nav>
 
-        <main className="flex-1 px-5 py-6">
+        <main className="flex-1 overflow-y-auto px-5 py-6 pb-16">
           <div className="mb-5 lg:hidden">
             <select
               value={active}
