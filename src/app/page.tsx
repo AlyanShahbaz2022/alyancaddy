@@ -11,6 +11,10 @@ import Portfolio from "@/components/sections/Portfolio";
 import Services from "@/components/sections/Services";
 import Stats from "@/components/sections/Stats";
 
+// Always render on each request so admin edits (stored in the DB) appear
+// immediately without waiting on static-cache revalidation.
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const content = await getContent();
 
