@@ -22,7 +22,7 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
     <img
       src={logoImage}
       alt={logo || "Logo"}
-      className="h-12 w-auto object-contain sm:h-14 lg:h-16"
+      className="h-20 w-auto object-contain sm:h-28 lg:h-32"
     />
   ) : (
     <span className="font-display text-xl tracking-widest text-white">{logo}</span>
@@ -55,7 +55,7 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
             : "bg-transparent"
         )}
       >
-        <div className="container-x flex h-20 items-center justify-between">
+        <div className="container-x flex h-28 items-center justify-between lg:h-36">
           <a href="#home" data-cursor-label="TOP" className="flex items-center">
             {logoNode}
           </a>
