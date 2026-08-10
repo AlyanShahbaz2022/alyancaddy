@@ -22,25 +22,25 @@ export default function Services({ services }: ServicesProps) {
         <p className="mt-5 max-w-xl text-sm text-muted">{services.intro}</p>
       ) : null}
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2">
+      <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-6">
         {services.items.map((service, index) => (
           <Reveal key={service.id} delay={(index % 2) * 0.1}>
-            <Card className="group relative h-full overflow-hidden p-7 sm:p-8">
+            <Card className="group relative h-full overflow-hidden p-4 sm:p-8">
               <span
                 aria-hidden
-                className="absolute right-6 top-5 font-display text-6xl text-white/[0.05]"
+                className="absolute right-3 top-2 font-display text-4xl text-white/[0.05] sm:right-6 sm:top-5 sm:text-6xl"
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent transition-colors group-hover:bg-accent group-hover:text-black">
-                <Icon name={service.icon} size={22} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent transition-colors group-hover:bg-accent group-hover:text-black sm:h-12 sm:w-12">
+                <Icon name={service.icon} size={20} />
               </div>
 
-              <h3 className="mt-6 font-display text-xl uppercase tracking-wide">
+              <h3 className="mt-4 font-display text-base uppercase tracking-wide sm:mt-6 sm:text-xl">
                 {service.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <p className="mt-2 text-xs leading-relaxed text-muted sm:mt-3 sm:text-sm">
                 {service.description}
               </p>
 
