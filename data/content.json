@@ -8,6 +8,7 @@
   },
   "nav": {
     "logo": "ALYANCADDY",
+    "logoImage": "/images/Logo.jpeg",
     "links": [
       { "label": "HOME", "href": "#home" },
       { "label": "ABOUT", "href": "#about" },

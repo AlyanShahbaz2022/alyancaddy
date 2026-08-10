@@ -18,6 +18,7 @@ export default async function Home() {
     <>
       <Navbar
         logo={content.nav.logo}
+        logoImage={content.nav.logoImage}
         links={content.nav.links}
         hire={content.nav.hire}
       />

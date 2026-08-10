@@ -10,11 +10,24 @@ import { cn } from "@/lib/utils";
 
 type NavbarProps = {
   logo: string;
+  logoImage?: string;
   links: LinkType[];
   hire: LinkType;
 };
 
-export default function Navbar({ logo, links, hire }: NavbarProps) {
+export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
+  const hasLogoImage = Boolean(logoImage && logoImage.trim());
+  const logoNode = hasLogoImage ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={logoImage}
+      alt={logo || "Logo"}
+      className="h-9 w-auto object-contain sm:h-10"
+    />
+  ) : (
+    <span className="font-display text-xl tracking-widest text-white">{logo}</span>
+  );
+
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -43,12 +56,8 @@ export default function Navbar({ logo, links, hire }: NavbarProps) {
         )}
       >
         <div className="container-x flex h-20 items-center justify-between">
-          <a
-            href="#home"
-            data-cursor-label="TOP"
-            className="font-display text-xl tracking-widest text-white"
-          >
-            {logo}
+          <a href="#home" data-cursor-label="TOP" className="flex items-center">
+            {logoNode}
           </a>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -87,9 +96,7 @@ export default function Navbar({ logo, links, hire }: NavbarProps) {
             className="fixed inset-0 z-[60] flex flex-col bg-base/95 backdrop-blur-xl"
           >
             <div className="container-x flex h-20 items-center justify-between">
-              <span className="font-display text-xl tracking-widest">
-                {logo}
-              </span>
+              <span className="flex items-center">{logoNode}</span>
               <button onClick={() => setOpen(false)} aria-label="Close menu">
                 <X size={26} />
               </button>

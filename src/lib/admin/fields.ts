@@ -143,7 +143,8 @@ export const ADMIN_GROUPS: AdminGroup[] = [
     key: "nav",
     label: "Navigation",
     fields: [
-      text("logo", "Logo text"),
+      image("logoImage", "Logo image", "profile"),
+      text("logo", "Logo text (fallback if no image)"),
       list("links", "Nav links", newLink, linkFields, "Link"),
       object("hire", "Hire button", linkFields),
     ],

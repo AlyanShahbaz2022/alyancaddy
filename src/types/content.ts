@@ -114,6 +114,7 @@ export const contentSchema = z.object({
   }),
   nav: z.object({
     logo: z.string(),
+    logoImage: z.string().default(""),
     links: z.array(linkSchema),
     hire: linkSchema,
   }),
