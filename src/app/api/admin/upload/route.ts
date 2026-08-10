@@ -35,7 +35,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     const bytes = Buffer.from(await file.arrayBuffer());
     const dataUri = `data:${file.type || "image/png"};base64,${bytes.toString("base64")}`;
     const result = await cloudinary.uploader.upload(dataUri, {
-      folder: "alyancaddy",
+      folder: "alyan caddy portfolio images",
       resource_type: "image",
       overwrite: true,
     });
