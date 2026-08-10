@@ -138,8 +138,8 @@ export default function Hero({ hero, socials, name }: HeroProps) {
               key={card.id}
               className={`absolute animate-floaty rounded-xl border border-line bg-card px-2.5 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.5)] sm:rounded-2xl sm:px-5 sm:py-4 ${
                 index === 0
-                  ? "-left-3 top-4 sm:-left-8 sm:top-10"
-                  : "-right-3 bottom-4 sm:-right-6 sm:bottom-16"
+                  ? "left-0 top-0 sm:-left-4 sm:top-6"
+                  : "-bottom-4 -right-3 sm:-bottom-5 sm:-right-6"
               }`}
               style={{ animationDelay: index === 0 ? "0s" : "0.9s" }}
             >
