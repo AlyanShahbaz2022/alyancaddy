@@ -67,8 +67,8 @@ export default function Hero({ hero, socials, name }: HeroProps) {
         ))}
       </div>
 
-      <div className="container-x grid grid-cols-2 items-center gap-4 sm:gap-10 lg:gap-14">
-        <motion.div variants={container} initial="hidden" animate="show" className="text-left">
+      <div className="container-x grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
+        <motion.div variants={container} initial="hidden" animate="show" className="text-center lg:text-left">
           <motion.div
             variants={item}
             className="inline-flex items-center gap-2.5 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-green-400"
@@ -79,7 +79,7 @@ export default function Hero({ hero, socials, name }: HeroProps) {
 
           <motion.h1
             aria-label={hero.headline.replace(/\*\*/g, "")}
-            className="mt-4 font-display text-2xl uppercase leading-[0.95] tracking-tight sm:mt-6 sm:text-6xl sm:leading-[0.92] lg:text-7xl"
+            className="mt-6 font-display text-4xl uppercase leading-[0.95] tracking-tight sm:text-6xl sm:leading-[0.92] lg:text-7xl"
           >
             {words.map((word) => (
               <motion.span
@@ -94,19 +94,19 @@ export default function Hero({ hero, socials, name }: HeroProps) {
 
           <motion.p
             variants={item}
-            className="mt-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted sm:mt-5 sm:text-xs sm:tracking-[0.3em]"
+            className="mt-5 text-xs font-semibold uppercase tracking-[0.3em] text-muted"
           >
             {hero.eyebrow}
           </motion.p>
 
           <p
-            className="mt-3 max-w-xl text-xs leading-relaxed text-white/70 sm:mt-4 sm:text-base"
+            className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base lg:mx-0"
             style={{ opacity: 1, transform: "none" }}
           >
             {hero.description}
           </p>
 
-          <motion.div variants={item} className="mt-5 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
+          <motion.div variants={item} className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
             <Button href={hero.primaryCta.href} size="lg">
               {hero.primaryCta.label}
             </Button>
@@ -120,7 +120,7 @@ export default function Hero({ hero, socials, name }: HeroProps) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-[16rem] sm:max-w-sm lg:max-w-md"
+          className="relative order-first mx-auto w-full max-w-[15rem] sm:max-w-sm lg:order-none lg:max-w-md"
         >
           <div className="relative overflow-hidden rounded-xl border border-line sm:rounded-3xl">
             <SiteImage
@@ -129,7 +129,7 @@ export default function Hero({ hero, socials, name }: HeroProps) {
               width={720}
               height={900}
               loading="eager"
-              className="h-[220px] w-full object-cover object-top sm:h-[440px] lg:h-[560px]"
+              className="h-[280px] w-full object-cover object-top sm:h-[440px] lg:h-[560px]"
             />
           </div>
 
@@ -138,8 +138,8 @@ export default function Hero({ hero, socials, name }: HeroProps) {
               key={card.id}
               className={`absolute animate-floaty rounded-xl border border-line bg-card px-2.5 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.5)] sm:rounded-2xl sm:px-5 sm:py-4 ${
                 index === 0
-                  ? "-left-2 -top-3 sm:-left-8 sm:top-10"
-                  : "-right-2 bottom-6 sm:-right-6 sm:bottom-16"
+                  ? "-left-3 top-4 sm:-left-8 sm:top-10"
+                  : "-right-3 bottom-4 sm:-right-6 sm:bottom-16"
               }`}
               style={{ animationDelay: index === 0 ? "0s" : "0.9s" }}
             >
