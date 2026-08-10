@@ -22,7 +22,7 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
     <img
       src={logoImage}
       alt={logo || "Logo"}
-      className="h-9 w-auto object-contain sm:h-10"
+      className="h-12 w-auto object-contain sm:h-14 lg:h-16"
     />
   ) : (
     <span className="font-display text-xl tracking-widest text-white">{logo}</span>
