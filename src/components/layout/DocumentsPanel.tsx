@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Award,
+  Download,
   ExternalLink,
   FileBadge,
   FileText,
@@ -19,6 +20,9 @@ type DocumentsPanelProps = {
   onClose: () => void;
   documents: Content["documents"];
 };
+
+const actionClass =
+  "flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:bg-accent hover:text-black";
 
 function categoryIcon(category: string) {
   const value = category.toLowerCase();
@@ -133,32 +137,46 @@ export default function DocumentsPanel({
                       </h3>
                       <ul className="space-y-3">
                         {group.items.map((item) => (
-                          <li key={item.id}>
-                            <a
-                              href={item.file}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              data-cursor-label="OPEN"
-                              className="group flex items-center gap-4 rounded-xl border border-line bg-card p-4 transition-colors hover:border-accent"
-                            >
-                              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-[10px] font-bold tracking-wider text-accent">
-                                {fileExtension(item)}
+                          <li
+                            key={item.id}
+                            className="flex items-center gap-4 rounded-xl border border-line bg-card p-4 transition-colors hover:border-accent/60"
+                          >
+                            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-[10px] font-bold tracking-wider text-accent">
+                              {fileExtension(item)}
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate font-semibold text-white">
+                                {item.title || item.fileName || "Untitled document"}
                               </span>
-                              <span className="min-w-0 flex-1">
-                                <span className="block truncate font-semibold text-white">
-                                  {item.title || item.fileName || "Untitled document"}
+                              {item.description ? (
+                                <span className="mt-0.5 line-clamp-2 block text-xs text-muted">
+                                  {item.description}
                                 </span>
-                                {item.description ? (
-                                  <span className="mt-0.5 line-clamp-2 block text-xs text-muted">
-                                    {item.description}
-                                  </span>
-                                ) : null}
-                              </span>
-                              <ExternalLink
-                                size={16}
-                                className="shrink-0 text-muted transition-colors group-hover:text-accent"
-                              />
-                            </a>
+                              ) : null}
+                            </span>
+                            <span className="flex shrink-0 items-center gap-2">
+                              <a
+                                href={item.file}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`View ${item.title || "document"}`}
+                                title="View"
+                                data-cursor-label="VIEW"
+                                className={actionClass}
+                              >
+                                <ExternalLink size={16} />
+                              </a>
+                              <a
+                                href={`/api/documents/${encodeURIComponent(item.id)}/download`}
+                                download
+                                aria-label={`Download ${item.title || "document"}`}
+                                title="Download"
+                                data-cursor-label="SAVE"
+                                className={actionClass}
+                              >
+                                <Download size={16} />
+                              </a>
+                            </span>
                           </li>
                         ))}
                       </ul>

@@ -35,7 +35,6 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
   const [docsOpen, setDocsOpen] = useState(false);
   const closeDocs = useCallback(() => setDocsOpen(false), []);
 
-  const documentCount = documents.items.filter((item) => item.file.trim()).length;
   const docsButton = (className?: string) => (
       <button
         type="button"
@@ -44,16 +43,11 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
         title={documents.label}
         data-cursor-label="DOCS"
         className={cn(
-          "relative flex h-12 w-12 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent",
+          "flex h-12 w-12 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent",
           className
         )}
       >
         <FolderOpen size={20} />
-        {documentCount > 0 ? (
-          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-black">
-            {documentCount}
-          </span>
-        ) : null}
       </button>
     );
 
