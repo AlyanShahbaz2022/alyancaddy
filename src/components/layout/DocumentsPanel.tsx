@@ -98,7 +98,7 @@ export default function DocumentsPanel({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 260 }}
-            className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-line bg-base shadow-2xl"
+            className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-line bg-ink shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4 border-b border-line px-6 py-6">
               <div>

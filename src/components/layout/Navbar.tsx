@@ -71,7 +71,7 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           scrolled
-            ? "border-b border-line/70 bg-base/85 backdrop-blur-md"
+            ? "border-b border-line/70 bg-ink/85 backdrop-blur-md"
             : "bg-transparent"
         )}
       >
@@ -113,7 +113,7 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-base/95 backdrop-blur-xl"
+            className="fixed inset-0 z-[60] flex flex-col bg-ink/95 backdrop-blur-xl"
           >
             <div className="container-x flex h-20 items-center justify-between">
               <span className="flex items-center">{logoNode}</span>

@@ -20,7 +20,7 @@ export default function AppMockupCard({ project }: AppMockupCardProps) {
           gradient.to
         )}
       >
-        <div className="relative mx-auto h-[400px] w-[200px] shrink-0 rounded-[2rem] border-[10px] border-line bg-base shadow-2xl">
+        <div className="relative mx-auto h-[400px] w-[200px] shrink-0 rounded-[2rem] border-[10px] border-line bg-ink shadow-2xl">
           <div className="flex h-full flex-col overflow-hidden rounded-[1.35rem] bg-surface">
             {project.image ? (
               // Uploaded app screenshot (Cloudinary).

@@ -113,7 +113,7 @@ export default function AdminEditor({
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
-      <header className="z-20 shrink-0 border-b border-line bg-base/90 backdrop-blur">
+      <header className="z-20 shrink-0 border-b border-line bg-ink/90 backdrop-blur">
         <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4">
           <div className="flex min-w-0 items-center gap-3">
             <button
@@ -164,7 +164,7 @@ export default function AdminEditor({
               className="absolute inset-0 bg-black/60"
               onClick={() => setSidebarOpen(false)}
             />
-            <nav className="absolute inset-y-0 left-0 flex w-64 max-w-[80%] flex-col overflow-y-auto border-r border-line bg-base p-3 shadow-2xl">
+            <nav className="absolute inset-y-0 left-0 flex w-64 max-w-[80%] flex-col overflow-y-auto border-r border-line bg-ink p-3 shadow-2xl">
               <div className="mb-2 flex items-center justify-between px-1">
                 <span className="text-xs font-bold uppercase tracking-wider text-muted">
                   Sections

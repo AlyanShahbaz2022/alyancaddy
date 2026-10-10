@@ -43,7 +43,7 @@ export default function RootLayout(props: LayoutProps<"/">) {
       lang="en"
       className={`${archivoBlack.variable} ${inter.variable}`}
     >
-      <body className="bg-base font-sans text-white antialiased">
+      <body className="bg-ink font-sans text-white antialiased">
         <div aria-hidden className="noise-overlay" />
         <SiteShell>{props.children}</SiteShell>
       </body>
