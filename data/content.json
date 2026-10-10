@@ -289,6 +289,12 @@
     "toastError": "Something went wrong. Please try again.",
     "sendingLabel": "SENDING..."
   },
+  "documents": {
+    "label": "Documents",
+    "heading": "CREDENTIALS & **DOCUMENTS**",
+    "description": "My CV, academic records and certifications — open any file to view it.",
+    "items": []
+  },
   "socials": [
     { "id": "linkedin", "name": "LinkedIn", "icon": "linkedin", "url": "https://www.linkedin.com/" },
     { "id": "instagram", "name": "Instagram", "icon": "instagram", "url": "https://www.instagram.com/" },

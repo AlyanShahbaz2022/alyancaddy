@@ -25,6 +25,7 @@ export default async function Home() {
         logoImage={content.nav.logoImage}
         links={content.nav.links}
         hire={content.nav.hire}
+        documents={content.documents}
       />
       <main>
         <Hero

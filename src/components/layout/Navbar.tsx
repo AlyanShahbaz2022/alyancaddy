@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { FolderOpen, Menu, X } from "lucide-react";
 
-import type { Link as LinkType } from "@/types/content";
+import type { Content, Link as LinkType } from "@/types/content";
+import DocumentsPanel from "@/components/layout/DocumentsPanel";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -13,9 +14,10 @@ type NavbarProps = {
   logoImage?: string;
   links: LinkType[];
   hire: LinkType;
+  documents: Content["documents"];
 };
 
-export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
+export default function Navbar({ logo, logoImage, links, hire, documents }: NavbarProps) {
   const hasLogoImage = Boolean(logoImage && logoImage.trim());
   const logoNode = hasLogoImage ? (
     // eslint-disable-next-line @next/next/no-img-element
@@ -30,6 +32,29 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
 
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [docsOpen, setDocsOpen] = useState(false);
+  const closeDocs = useCallback(() => setDocsOpen(false), []);
+
+  const documentCount = documents.items.filter((item) => item.file.trim()).length;
+  const docsButton = (className?: string) =>
+    documentCount > 0 ? (
+      <button
+        type="button"
+        onClick={() => setDocsOpen(true)}
+        aria-label={documents.label}
+        title={documents.label}
+        data-cursor-label="DOCS"
+        className={cn(
+          "relative flex h-12 w-12 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent",
+          className
+        )}
+      >
+        <FolderOpen size={20} />
+        <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-black">
+          {documentCount}
+        </span>
+      </button>
+    ) : null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -72,17 +97,17 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-3 md:flex">
+            {docsButton()}
             <Button href={hire.href}>{hire.label}</Button>
           </div>
 
-          <button
-            className="md:hidden"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu size={26} />
-          </button>
+          <div className="flex items-center gap-4 md:hidden">
+            {docsButton("h-10 w-10")}
+            <button onClick={() => setOpen(true)} aria-label="Open menu">
+              <Menu size={26} />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -126,6 +151,8 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      <DocumentsPanel open={docsOpen} onClose={closeDocs} documents={documents} />
     </>
   );
 }

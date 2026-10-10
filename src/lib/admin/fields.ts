@@ -1,4 +1,4 @@
-import { gradients, iconNames } from "@/types/content";
+import { documentCategories, gradients, iconNames } from "@/types/content";
 
 export type FieldType =
   | "text"
@@ -7,6 +7,7 @@ export type FieldType =
   | "select"
   | "boolean"
   | "image"
+  | "file"
   | "object"
   | "list";
 
@@ -21,6 +22,8 @@ export type FieldDef = {
   itemLabel?: string;
   /** Cloudinary sub-folder for image fields (e.g. "profile", "portfolio"). */
   folder?: string;
+  /** For file fields: sibling key that receives the original file name. */
+  nameKey?: string;
 };
 
 export type AdminGroup = {
@@ -58,6 +61,13 @@ const image = (key: string, label: string, folder = "profile"): FieldDef => ({
   label,
   type: "image",
   folder,
+});
+const file = (key: string, label: string, nameKey?: string): FieldDef => ({
+  key,
+  label,
+  type: "file",
+  folder: "documents",
+  nameKey,
 });
 const select = (
   key: string,
@@ -120,6 +130,14 @@ const newSocial = () => ({
   name: "",
   icon: "linkedin" as const,
   url: "",
+});
+const newDocument = () => ({
+  id: newId(),
+  title: "",
+  category: "CV / Resume",
+  description: "",
+  file: "",
+  fileName: "",
 });
 const newString = () => "";
 
@@ -313,6 +331,21 @@ export const ADMIN_GROUPS: AdminGroup[] = [
       list("services", "Service links", newLink, linkFields, "Link"),
       text("rights", "Rights text"),
       text("builtWith", "Built with"),
+    ],
+  },
+  {
+    key: "documents",
+    label: "Documents",
+    fields: [
+      text("label", "Navbar icon tooltip"),
+      text("heading", "Panel heading (wrap a word in ** ** for red)"),
+      area("description", "Panel description"),
+      list("items", "Documents", newDocument, [
+        text("title", "Title", "e.g. Curriculum Vitae"),
+        select("category", "Category", documentCategories),
+        area("description", "Short description (optional)"),
+        file("file", "File (PDF, Word or image)", "fileName"),
+      ], "Document"),
     ],
   },
   {

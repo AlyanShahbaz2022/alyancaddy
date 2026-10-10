@@ -32,7 +32,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   // Only allow a fixed set of folders so clients can't write anywhere.
-  const ALLOWED_FOLDERS = ["profile", "portfolio"] as const;
+  const ALLOWED_FOLDERS = ["profile", "portfolio", "documents"] as const;
   const BASE_FOLDER = "alyan caddy portfolio images";
   const requested = String(formData?.get("folder") ?? "");
   const sub = (ALLOWED_FOLDERS as readonly string[]).includes(requested)
@@ -40,17 +40,56 @@ export async function POST(request: NextRequest): Promise<Response> {
     : "profile";
   const folder = `${BASE_FOLDER}/${sub}`;
 
+  const isImage = (file.type || "").startsWith("image/");
+  if (!isImage && sub !== "documents") {
+    return Response.json({ error: "Only images are allowed here" }, { status: 400 });
+  }
+
+  const extension = (file.name.split(".").pop() || "").toLowerCase();
+  if (!isImage && !ALLOWED_DOCUMENT_EXTENSIONS.has(extension)) {
+    return Response.json({ error: "Unsupported file type" }, { status: 400 });
+  }
+
   try {
     const bytes = Buffer.from(await file.arrayBuffer());
-    const dataUri = `data:${file.type || "image/png"};base64,${bytes.toString("base64")}`;
-    const result = await cloudinary.uploader.upload(dataUri, {
-      folder,
-      resource_type: "image",
-      overwrite: true,
-    });
-    return Response.json({ url: result.secure_url });
+    const dataUri = `data:${file.type || "application/octet-stream"};base64,${bytes.toString("base64")}`;
+    // Non-image documents (PDF, Word, …) go up as "raw" so Cloudinary serves
+    // the original file untouched; raw public IDs must carry the extension.
+    const result = await cloudinary.uploader.upload(
+      dataUri,
+      isImage
+        ? { folder, resource_type: "image", overwrite: true }
+        : {
+            folder,
+            resource_type: "raw",
+            public_id: `${slugify(file.name)}-${Date.now().toString(36)}.${extension}`,
+          }
+    );
+    return Response.json({ url: result.secure_url, name: file.name });
   } catch (error) {
     console.error("[admin/upload] failed", error);
     return Response.json({ error: "Upload failed" }, { status: 500 });
   }
+}
+
+const ALLOWED_DOCUMENT_EXTENSIONS = new Set([
+  "pdf",
+  "doc",
+  "docx",
+  "ppt",
+  "pptx",
+  "xls",
+  "xlsx",
+  "txt",
+]);
+
+function slugify(fileName: string): string {
+  const base = fileName.replace(/\.[^.]+$/, "");
+  return (
+    base
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "document"
+  );
 }

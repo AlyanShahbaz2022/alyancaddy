@@ -104,6 +104,23 @@ export const socialSchema = z.object({
   url: z.string(),
 });
 
+export const documentCategories = [
+  "CV / Resume",
+  "FSC Marks",
+  "Matric Marks",
+  "Certification",
+  "Other",
+] as const;
+
+export const documentSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  category: z.string(),
+  description: z.string().default(""),
+  file: z.string(),
+  fileName: z.string().default(""),
+});
+
 export const contentSchema = z.object({
   site: z.object({
     brand: z.string(),
@@ -214,6 +231,19 @@ export const contentSchema = z.object({
     toastError: z.string(),
     sendingLabel: z.string(),
   }),
+  documents: z
+    .object({
+      label: z.string().default("Documents"),
+      heading: z.string().default("CREDENTIALS & **DOCUMENTS**"),
+      description: z.string().default(""),
+      items: z.array(documentSchema).default([]),
+    })
+    .default({
+      label: "Documents",
+      heading: "CREDENTIALS & **DOCUMENTS**",
+      description: "",
+      items: [],
+    }),
   socials: z.array(socialSchema),
   footer: z.object({
     tagline: z.string(),
@@ -229,6 +259,7 @@ export type Service = z.infer<typeof serviceSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type Faq = z.infer<typeof faqSchema>;
 export type Stat = z.infer<typeof statSchema>;
+export type DocumentItem = z.infer<typeof documentSchema>;
 export type Social = z.infer<typeof socialSchema>;
 export type IconName = z.infer<typeof iconNameSchema>;
 export type Gradient = z.infer<typeof gradientSchema>;
