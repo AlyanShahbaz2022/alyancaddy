@@ -35,9 +35,12 @@ function categoryIcon(category: string) {
 }
 
 function fileExtension(item: DocumentItem): string {
-  const source = item.fileName || item.file;
-  const match = source.split("?")[0].match(/\.([a-z0-9]{2,5})$/i);
-  return match ? match[1].toUpperCase() : "FILE";
+  // Prefer the real file URL; the download name may have no extension.
+  for (const source of [item.file, item.fileName]) {
+    const match = source.split("?")[0].match(/\.([a-z0-9]{2,5})$/i);
+    if (match) return match[1].toUpperCase();
+  }
+  return "FILE";
 }
 
 export default function DocumentsPanel({

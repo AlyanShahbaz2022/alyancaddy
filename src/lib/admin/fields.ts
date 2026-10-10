@@ -345,6 +345,11 @@ export const ADMIN_GROUPS: AdminGroup[] = [
         select("category", "Category", documentCategories),
         area("description", "Short description (optional)"),
         file("file", "File (PDF, Word or image)", "fileName"),
+        text(
+          "fileName",
+          "Download file name (filled on upload — edit as you like)",
+          "e.g. Muhammad-Umar-CV"
+        ),
       ], "Document"),
     ],
   },

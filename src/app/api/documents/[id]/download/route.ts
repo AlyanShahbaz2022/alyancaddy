@@ -46,9 +46,12 @@ export async function GET(
   return new Response(upstream.body, { headers });
 }
 
+// Uses the admin-set file name (falling back to the title) and makes sure it
+// ends with the real file's extension so it opens correctly once saved.
 function downloadName(fileName: string, title: string, pathname: string): string {
-  if (fileName.trim()) return fileName.trim();
   const ext = pathname.match(/\.([a-z0-9]{2,5})$/i)?.[0] ?? "";
-  const base = title.trim().replace(/[\\/:*?"<>|]+/g, "-") || "document";
+  const base =
+    (fileName.trim() || title.trim()).replace(/[\\/:*?"<>|]+/g, "-") || "document";
+  if (!ext || base.toLowerCase().endsWith(ext.toLowerCase())) return base;
   return `${base}${ext}`;
 }
