@@ -128,6 +128,9 @@ export const contentSchema = z.object({
     name: z.string(),
     title: z.string(),
     description: z.string(),
+    /** Public site URL for canonical/OG links, e.g. https://alyancaddy.com */
+    url: z.string().default(""),
+    keywords: z.array(z.string()).default([]),
   }),
   nav: z.object({
     logo: z.string(),

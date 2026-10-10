@@ -2,9 +2,22 @@
   "site": {
     "brand": "alyancaddy",
     "brandDisplay": "ALYANCADDY",
-    "name": "Muhammad Umar",
-    "title": "AlyanCaddy — Muhammad Umar",
-    "description": "Full-stack developer and Shopify expert crafting modern websites, mobile apps, and content."
+    "name": "Alyan Shahbaz",
+    "title": "Alyan Shahbaz — Full-Stack Dev & Shopify Expert | AlyanCaddy",
+    "description": "Alyan Shahbaz (AlyanCaddy) is a full-stack developer and Shopify expert in Pakistan building fast websites, mobile apps and high-converting Shopify stores.",
+    "url": "",
+    "keywords": [
+      "Alyan Shahbaz",
+      "AlyanCaddy",
+      "Full-Stack Developer",
+      "Shopify Expert",
+      "Shopify Store Setup",
+      "Web Developer in Pakistan",
+      "Next.js Developer",
+      "React Developer",
+      "Flutter App Developer",
+      "Freelance Web Developer"
+    ]
   },
   "nav": {
     "logo": "ALYANCADDY",
@@ -47,8 +60,8 @@
   },
   "about": {
     "eyebrow": "ABOUT ME",
-    "heading": "HI, I'M **MUHAMMAD UMAR**",
-    "name": "Muhammad Umar",
+    "heading": "HI, I'M **ALYAN SHAHBAZ**",
+    "name": "Alyan Shahbaz",
     "location": "Islamabad / Sargodha, Pakistan",
     "bio": [
       "I'm a full-stack developer and digital creator who builds high-quality websites, mobile applications, and Shopify stores. From concept to deployment, I handle every line with purpose. My clients get clean code, stunning design, and results that actually move the needle.",

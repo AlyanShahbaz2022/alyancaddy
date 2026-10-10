@@ -78,9 +78,14 @@ export default function Hero({ hero, socials, name }: HeroProps) {
           </motion.div>
 
           <motion.h1
-            aria-label={hero.headline.replace(/\*\*/g, "")}
+            aria-label={`${name} — ${hero.headline.replace(/\*\*/g, "")}`}
             className="mt-6 font-display text-4xl uppercase leading-[0.95] tracking-tight sm:text-6xl sm:leading-[0.92] lg:text-7xl"
           >
+            {/* Name + role for search engines; the visual headline stays as designed. */}
+            <span className="sr-only">
+              {name}
+              {hero.eyebrow ? `, ${hero.eyebrow.trim()}` : ""} —{" "}
+            </span>
             {words.map((word) => (
               <motion.span
                 key={word.key}

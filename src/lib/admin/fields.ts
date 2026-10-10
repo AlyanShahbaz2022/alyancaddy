@@ -148,13 +148,25 @@ const socialIcons = ["linkedin", "instagram", "tiktok"] as const;
 export const ADMIN_GROUPS: AdminGroup[] = [
   {
     key: "site",
-    label: "Site",
+    label: "Site & SEO",
     fields: [
       text("brand", "Brand"),
       text("brandDisplay", "Brand (display)"),
-      text("name", "Name"),
-      text("title", "Meta title"),
-      area("description", "Meta description"),
+      text("name", "Your name (used in Google results & schema)"),
+      text(
+        "title",
+        "SEO title — shown in Google & browser tab (aim for 50–60 chars)"
+      ),
+      area(
+        "description",
+        "SEO description — Google snippet & link previews (aim for 140–160 chars)"
+      ),
+      text(
+        "url",
+        "Site URL (your live domain, e.g. https://alyancaddy.com)",
+        "https://your-domain.com"
+      ),
+      list("keywords", "SEO keywords", newString, undefined, "Keyword"),
     ],
   },
   {
@@ -348,7 +360,7 @@ export const ADMIN_GROUPS: AdminGroup[] = [
         text(
           "fileName",
           "Download file name (filled on upload — edit as you like)",
-          "e.g. Muhammad-Umar-CV"
+          "e.g. Alyan-Shahbaz-CV"
         ),
       ], "Document"),
     ],
