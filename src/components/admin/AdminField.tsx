@@ -167,12 +167,12 @@ function ImageField({
     setUploading(true);
     try {
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Upload failed");
       onChange(path, data.url);
       toast.success("Image uploaded");
-    } catch {
-      toast.error("Image upload failed");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Image upload failed");
     } finally {
       setUploading(false);
     }

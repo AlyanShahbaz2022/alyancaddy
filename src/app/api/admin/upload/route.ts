@@ -68,7 +68,15 @@ export async function POST(request: NextRequest): Promise<Response> {
     return Response.json({ url: result.secure_url, name: file.name });
   } catch (error) {
     console.error("[admin/upload] failed", error);
-    return Response.json({ error: "Upload failed" }, { status: 500 });
+    // Surface Cloudinary's reason (e.g. "Invalid api_key", "File size too
+    // large") so the admin sees what actually went wrong.
+    const reason =
+      (error as { error?: { message?: string }; message?: string })?.error?.message ??
+      (error as { message?: string })?.message;
+    return Response.json(
+      { error: reason ? `Upload failed: ${reason}` : "Upload failed" },
+      { status: 500 }
+    );
   }
 }
 
