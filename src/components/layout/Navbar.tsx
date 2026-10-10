@@ -24,7 +24,7 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
     <img
       src={logoImage}
       alt={logo || "Logo"}
-      className="h-20 w-auto object-contain sm:h-28 lg:h-32"
+      className="h-16 w-auto object-contain sm:h-20 lg:h-24"
     />
   ) : (
     <span className="font-display text-xl tracking-widest text-white">{logo}</span>
@@ -75,7 +75,7 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
             : "bg-transparent"
         )}
       >
-        <div className="container-x flex h-28 items-center justify-between lg:h-36">
+        <div className="container-x flex h-24 items-center justify-between lg:h-28">
           <a href="#home" data-cursor-label="TOP" className="flex items-center">
             {logoNode}
           </a>
