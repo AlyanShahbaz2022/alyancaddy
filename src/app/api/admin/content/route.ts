@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 
 import { isAdmin } from "@/lib/adminAuth";
 import { getContent } from "@/lib/getContent";
-import { saveContent } from "@/lib/saveContent";
+import { ContentConflictError, saveContent } from "@/lib/saveContent";
 import { revalidatePath } from "next/cache";
 
 export async function GET(): Promise<Response> {
@@ -19,10 +19,20 @@ export async function PUT(request: NextRequest): Promise<Response> {
   }
   try {
     const body = await request.json();
-    const saved = await saveContent(body);
+    const expectedVersion = request.headers.get("x-content-version") || undefined;
+    const saved = await saveContent(body, expectedVersion);
     revalidatePath("/", "layout");
-    return Response.json({ ok: true, content: saved });
+    return Response.json({ ok: true, ...saved });
   } catch (error) {
+    if (error instanceof ContentConflictError) {
+      return Response.json(
+        {
+          error:
+            "Content was changed in another tab or session. Reload the page to get the latest version, then redo your edit.",
+        },
+        { status: 409 }
+      );
+    }
     return Response.json(
       { error: "Invalid content payload", detail: String(error) },
       { status: 400 }

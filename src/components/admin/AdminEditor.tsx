@@ -16,10 +16,13 @@ import { cn } from "@/lib/utils";
 
 export default function AdminEditor({
   initialContent,
+  initialVersion,
 }: {
   initialContent: Content;
+  initialVersion: string;
 }) {
   const [content, setContent] = useState<Content>(initialContent);
+  const [version, setVersion] = useState(initialVersion);
   const [active, setActive] = useState<string>("hero");
   const [saving, setSaving] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,11 +38,15 @@ export default function AdminEditor({
     try {
       const res = await fetch("/api/admin/content", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(version ? { "x-content-version": version } : {}),
+        },
         body: JSON.stringify(content),
       });
       const data = await res.json();
       if (res.ok) {
+        if (data.version) setVersion(data.version);
         toast.success("Changes saved");
       } else {
         toast.error(data.error || "Save failed — check the schema");
