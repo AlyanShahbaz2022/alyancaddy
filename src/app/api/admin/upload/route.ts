@@ -70,9 +70,14 @@ export async function POST(request: NextRequest): Promise<Response> {
     console.error("[admin/upload] failed", error);
     // Surface Cloudinary's reason (e.g. "Invalid api_key", "File size too
     // large") so the admin sees what actually went wrong.
-    const reason =
+    let reason =
       (error as { error?: { message?: string }; message?: string })?.error?.message ??
       (error as { message?: string })?.message;
+    // The SDK hides the 403 body; it means the API key lacks upload rights.
+    if (reason?.includes("403")) {
+      reason =
+        "Cloudinary API key has no upload permission — use a key with full/Admin access";
+    }
     return Response.json(
       { error: reason ? `Upload failed: ${reason}` : "Upload failed" },
       { status: 500 }
