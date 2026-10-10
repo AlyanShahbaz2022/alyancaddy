@@ -35,7 +35,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.image ? (
             // Uploaded screenshot shown inside a desktop/browser mockup frame.
             <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-5">
-              <div className="w-full overflow-hidden rounded-lg border border-white/15 bg-base/80 shadow-2xl backdrop-blur">
+              <div className="w-full overflow-hidden rounded-lg border border-white/15 bg-ink/80 shadow-2xl backdrop-blur">
                 <div className="flex items-center gap-2 border-b border-white/10 bg-black/40 px-3 py-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />

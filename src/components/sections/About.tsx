@@ -22,6 +22,7 @@ export default function About({ about }: AboutProps) {
                 alt={about.name}
                 width={640}
                 height={820}
+                loading="eager"
                 className="aspect-[4/5] w-full object-cover"
               />
               <span className="absolute bottom-0 left-0 bg-accent px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-black">

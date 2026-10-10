@@ -64,7 +64,7 @@ export default function CustomCursor() {
       <motion.div
         aria-hidden
         style={{ x: dotX, y: dotY, opacity: visible ? 1 : 0 }}
-        className="pointer-events-none fixed left-0 top-0 z-[70] transition-opacity duration-300"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] transition-opacity duration-300"
       >
         <div className="-translate-x-1/2 -translate-y-1/2">
           <div className="h-2 w-2 rounded-full bg-white" />
@@ -74,7 +74,7 @@ export default function CustomCursor() {
       <motion.div
         aria-hidden
         style={{ x: ringX, y: ringY, opacity: visible ? 1 : 0 }}
-        className="pointer-events-none fixed left-0 top-0 z-[70] transition-opacity duration-300"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] transition-opacity duration-300"
       >
         <motion.div
           animate={{ scale: hovering ? 2.2 : 1 }}

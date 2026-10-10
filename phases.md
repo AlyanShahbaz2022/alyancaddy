@@ -1,4 +1,4 @@
-Build Phases for "CodeByUmar"
+Build Phases for "AlyanCaddy"
 Phase 0 — Scaffold & Design Foundation
 
 - create-next-app (TypeScript, App Router, Tailwind, src/ dir)

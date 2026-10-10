@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { FolderOpen, Menu, X } from "lucide-react";
 
-import type { Link as LinkType } from "@/types/content";
+import type { Content, Link as LinkType } from "@/types/content";
+import DocumentsPanel from "@/components/layout/DocumentsPanel";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -13,16 +14,17 @@ type NavbarProps = {
   logoImage?: string;
   links: LinkType[];
   hire: LinkType;
+  documents: Content["documents"];
 };
 
-export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
+export default function Navbar({ logo, logoImage, links, hire, documents }: NavbarProps) {
   const hasLogoImage = Boolean(logoImage && logoImage.trim());
   const logoNode = hasLogoImage ? (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={logoImage}
       alt={logo || "Logo"}
-      className="h-20 w-auto object-contain sm:h-28 lg:h-32"
+      className="h-16 w-auto object-contain sm:h-20 lg:h-24"
     />
   ) : (
     <span className="font-display text-xl tracking-widest text-white">{logo}</span>
@@ -30,6 +32,24 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
 
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [docsOpen, setDocsOpen] = useState(false);
+  const closeDocs = useCallback(() => setDocsOpen(false), []);
+
+  const docsButton = (className?: string) => (
+      <button
+        type="button"
+        onClick={() => setDocsOpen(true)}
+        aria-label={documents.label}
+        title={documents.label}
+        data-cursor-label="DOCS"
+        className={cn(
+          "flex h-12 w-12 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-accent hover:text-accent",
+          className
+        )}
+      >
+        <FolderOpen size={20} />
+      </button>
+    );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -51,11 +71,11 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           scrolled
-            ? "border-b border-line/70 bg-base/85 backdrop-blur-md"
+            ? "border-b border-line/70 bg-ink/85 backdrop-blur-md"
             : "bg-transparent"
         )}
       >
-        <div className="container-x flex h-28 items-center justify-between lg:h-36">
+        <div className="container-x flex h-24 items-center justify-between lg:h-28">
           <a href="#home" data-cursor-label="TOP" className="flex items-center">
             {logoNode}
           </a>
@@ -72,17 +92,17 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-3 md:flex">
+            {docsButton()}
             <Button href={hire.href}>{hire.label}</Button>
           </div>
 
-          <button
-            className="md:hidden"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu size={26} />
-          </button>
+          <div className="flex items-center gap-4 md:hidden">
+            {docsButton("h-10 w-10")}
+            <button onClick={() => setOpen(true)} aria-label="Open menu">
+              <Menu size={26} />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -93,7 +113,7 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-base/95 backdrop-blur-xl"
+            className="fixed inset-0 z-[60] flex flex-col bg-ink/95 backdrop-blur-xl"
           >
             <div className="container-x flex h-20 items-center justify-between">
               <span className="flex items-center">{logoNode}</span>
@@ -126,6 +146,8 @@ export default function Navbar({ logo, logoImage, links, hire }: NavbarProps) {
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      <DocumentsPanel open={docsOpen} onClose={closeDocs} documents={documents} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import Skeleton from "@/components/ui/Skeleton";
 
 export default function SiteSkeleton() {
   return (
-    <div className="min-h-screen bg-base text-white">
+    <div className="min-h-screen bg-ink text-white">
       <header className="container-x flex h-20 items-center justify-between">
         <Skeleton className="h-6 w-40" />
         <div className="hidden gap-8 md:flex">

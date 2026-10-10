@@ -1,6 +1,6 @@
 # AlyanCaddy — Portfolio
 
-A fast, dark-themed, animated personal portfolio for **Muhammad Umar** (brand: **AlyanCaddy**). Built with **Next.js 16 (App Router, TypeScript)**, **Tailwind CSS v3**, **Framer Motion**, **Lucide**, **React Hook Form + Zod**, and **Resend** for email.
+A fast, dark-themed, animated personal portfolio for **Alyan Shahbaz** (brand: **AlyanCaddy**). Built with **Next.js 16 (App Router, TypeScript)**, **Tailwind CSS v3**, **Framer Motion**, **Lucide**, **React Hook Form + Zod**, and **Resend** for email.
 
 All content on the site comes from a **single source of truth**: `data/content.json`. Edit the file directly, or use the password-protected `/admin` dashboard — no code changes needed.
 
@@ -63,6 +63,14 @@ Vercel's filesystem is **read-only at runtime**, so **saving from `/admin` will 
 
 - **Keep it local-only editing**: run `next dev` locally, edit `/admin` there, commit the updated `data/content.json`, and deploy — the site always reflects it.
 - **Future-proof**: `src/lib/getContent.ts` and `src/lib/saveContent.ts` are the only files that read/write content. Swap their internals to a database (Supabase/Postgres, SQLite via Prisma, or Vercel KV) keeping the same JSON shape, and content editing works everywhere.
+
+## SEO
+
+- Title, description, keywords and site URL are edited in **/admin → Site & SEO** and rendered via `generateMetadata` in `src/app/layout.tsx`.
+- Generated routes: `/robots.txt` (blocks `/admin` and `/api/`), `/sitemap.xml`, `/manifest.webmanifest`, and `/opengraph-image` (1200×630 share card built from your name, role and photo).
+- JSON-LD structured data (Person, WebSite, ProfessionalService, FAQPage) is built in `src/lib/seo.ts` from the same content.
+- Canonical URL resolution: admin Site URL → `NEXT_PUBLIC_SITE_URL` → Vercel production domain → localhost.
+- Set `GOOGLE_SITE_VERIFICATION` to verify the site in Google Search Console, then submit `https://<your-domain>/sitemap.xml`.
 
 ## Scripts
 

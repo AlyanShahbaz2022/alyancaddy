@@ -13,7 +13,32 @@ export const CONTENT_PATH = path.join(process.cwd(), "data", "content.json");
 
 async function readContentFile(): Promise<Content> {
   const raw = await readFile(CONTENT_PATH, "utf8");
-  return contentSchema.parse(JSON.parse(raw));
+  return normalizeContent(contentSchema.parse(JSON.parse(raw)));
+}
+
+// "www.linkedin.com/in/x" without a scheme is treated by browsers as a
+// relative path on this site; give bare domains an https:// prefix.
+export function externalUrl(value: string): string {
+  const url = value.trim();
+  if (!url || /^([a-z][a-z0-9+.-]*:|\/|#)/i.test(url)) return url;
+  return /^[\w-]+(\.[\w-]+)+/.test(url) ? `https://${url}` : url;
+}
+
+function normalizeContent(content: Content): Content {
+  return {
+    ...content,
+    socials: content.socials.map((social) => ({
+      ...social,
+      url: externalUrl(social.url),
+    })),
+    portfolio: {
+      ...content.portfolio,
+      items: content.portfolio.items.map((project) => ({
+        ...project,
+        url: externalUrl(project.url),
+      })),
+    },
+  };
 }
 
 export async function getContent(): Promise<Content> {
@@ -27,5 +52,5 @@ export async function getContent(): Promise<Content> {
     return readContentFile();
   }
 
-  return contentSchema.parse(row.data);
+  return normalizeContent(contentSchema.parse(row.data));
 }

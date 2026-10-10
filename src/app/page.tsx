@@ -1,4 +1,5 @@
 import { getContent } from "@/lib/getContent";
+import { buildJsonLd, jsonLdScript } from "@/lib/seo";
 import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import Cta from "@/components/sections/Cta";
@@ -20,11 +21,16 @@ export default async function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(buildJsonLd(content)) }}
+      />
       <Navbar
         logo={content.nav.logo}
         logoImage={content.nav.logoImage}
         links={content.nav.links}
         hire={content.nav.hire}
+        documents={content.documents}
       />
       <main>
         <Hero

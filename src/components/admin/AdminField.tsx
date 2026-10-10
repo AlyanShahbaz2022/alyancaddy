@@ -58,6 +58,10 @@ export default function AdminField({ def, value, path, onChange }: AdminFieldPro
     return <ImageField def={def} value={value} path={path} onChange={onChange} />;
   }
 
+  if (def.type === "file") {
+    return <FileField def={def} value={value} path={path} onChange={onChange} />;
+  }
+
   const label = (
     <label htmlFor={path} className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted">
       {def.label}
@@ -163,12 +167,12 @@ function ImageField({
     setUploading(true);
     try {
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Upload failed");
       onChange(path, data.url);
       toast.success("Image uploaded");
-    } catch {
-      toast.error("Image upload failed");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Image upload failed");
     } finally {
       setUploading(false);
     }
@@ -246,6 +250,116 @@ function ImageField({
           alt="Preview"
           className="mt-2 h-20 w-32 rounded-lg border border-line object-cover"
         />
+      ) : null}
+    </div>
+  );
+}
+const DOCUMENT_ACCEPT =
+  ".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,image/*";
+
+function FileField({ def, value, path, onChange }: AdminFieldProps) {
+  const [uploading, setUploading] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const toast = useToast();
+
+  const upload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("folder", def.folder ?? "documents");
+    setUploading(true);
+    try {
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+      onChange(path, data.url);
+      if (def.nameKey) {
+        const siblingPath = path.split(".").slice(0, -1).concat(def.nameKey).join(".");
+        onChange(siblingPath, data.name || file.name);
+      }
+      toast.success("File uploaded — remember to save");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "File upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const onFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) await upload(file);
+    event.target.value = "";
+  };
+
+  const onDrop = async (event: React.DragEvent) => {
+    event.preventDefault();
+    setDragging(false);
+    if (uploading) return;
+    const file = event.dataTransfer.files?.[0];
+    if (file) await upload(file);
+  };
+
+  const url = String(value ?? "");
+
+  return (
+    <div>
+      <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted">
+        {def.label}
+      </span>
+
+      <label
+        onDragOver={(event) => {
+          event.preventDefault();
+          if (!dragging) setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={onDrop}
+        className={cn(
+          "flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed px-4 py-6 text-center transition-colors",
+          dragging
+            ? "border-accent bg-accent/10 text-accent"
+            : "border-line bg-surface text-muted hover:border-accent hover:text-accent"
+        )}
+      >
+        {uploading ? (
+          <span className="text-xs font-bold uppercase tracking-wider">
+            Uploading…
+          </span>
+        ) : (
+          <>
+            <span className="text-xs font-bold uppercase tracking-wider">
+              Drag &amp; drop a document
+            </span>
+            <span className="text-[11px] normal-case tracking-normal">
+              PDF, Word, PowerPoint, Excel or image — or click to browse
+            </span>
+          </>
+        )}
+        <input
+          type="file"
+          accept={DOCUMENT_ACCEPT}
+          onChange={onFile}
+          className="hidden"
+          disabled={uploading}
+        />
+      </label>
+
+      <input
+        type="text"
+        value={url}
+        placeholder="…or paste a file URL"
+        onChange={(event) => onChange(path, event.target.value)}
+        className={cn(inputClass, "mt-2")}
+      />
+
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-block text-xs font-semibold text-accent underline-offset-4 hover:underline"
+        >
+          Open current file ↗
+        </a>
       ) : null}
     </div>
   );

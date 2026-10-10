@@ -1,4 +1,4 @@
-import { gradients, iconNames } from "@/types/content";
+import { documentCategories, gradients, iconNames } from "@/types/content";
 
 export type FieldType =
   | "text"
@@ -7,6 +7,7 @@ export type FieldType =
   | "select"
   | "boolean"
   | "image"
+  | "file"
   | "object"
   | "list";
 
@@ -21,6 +22,8 @@ export type FieldDef = {
   itemLabel?: string;
   /** Cloudinary sub-folder for image fields (e.g. "profile", "portfolio"). */
   folder?: string;
+  /** For file fields: sibling key that receives the original file name. */
+  nameKey?: string;
 };
 
 export type AdminGroup = {
@@ -58,6 +61,13 @@ const image = (key: string, label: string, folder = "profile"): FieldDef => ({
   label,
   type: "image",
   folder,
+});
+const file = (key: string, label: string, nameKey?: string): FieldDef => ({
+  key,
+  label,
+  type: "file",
+  folder: "documents",
+  nameKey,
 });
 const select = (
   key: string,
@@ -121,6 +131,14 @@ const newSocial = () => ({
   icon: "linkedin" as const,
   url: "",
 });
+const newDocument = () => ({
+  id: newId(),
+  title: "",
+  category: "CV / Resume",
+  description: "",
+  file: "",
+  fileName: "",
+});
 const newString = () => "";
 
 const linkFields: FieldDef[] = [text("label", "Label"), text("href", "Href")];
@@ -130,13 +148,25 @@ const socialIcons = ["linkedin", "instagram", "tiktok"] as const;
 export const ADMIN_GROUPS: AdminGroup[] = [
   {
     key: "site",
-    label: "Site",
+    label: "Site & SEO",
     fields: [
       text("brand", "Brand"),
       text("brandDisplay", "Brand (display)"),
-      text("name", "Name"),
-      text("title", "Meta title"),
-      area("description", "Meta description"),
+      text("name", "Your name (used in Google results & schema)"),
+      text(
+        "title",
+        "SEO title — shown in Google & browser tab (aim for 50–60 chars)"
+      ),
+      area(
+        "description",
+        "SEO description — Google snippet & link previews (aim for 140–160 chars)"
+      ),
+      text(
+        "url",
+        "Site URL (your live domain, e.g. https://alyancaddy.com)",
+        "https://your-domain.com"
+      ),
+      list("keywords", "SEO keywords", newString, undefined, "Keyword"),
     ],
   },
   {
@@ -313,6 +343,26 @@ export const ADMIN_GROUPS: AdminGroup[] = [
       list("services", "Service links", newLink, linkFields, "Link"),
       text("rights", "Rights text"),
       text("builtWith", "Built with"),
+    ],
+  },
+  {
+    key: "documents",
+    label: "Documents",
+    fields: [
+      text("label", "Navbar icon tooltip"),
+      text("heading", "Panel heading (wrap a word in ** ** for red)"),
+      area("description", "Panel description"),
+      list("items", "Documents", newDocument, [
+        text("title", "Title", "e.g. Curriculum Vitae"),
+        select("category", "Category", documentCategories),
+        area("description", "Short description (optional)"),
+        file("file", "File (PDF, Word or image)", "fileName"),
+        text(
+          "fileName",
+          "Download file name (filled on upload — edit as you like)",
+          "e.g. Alyan-Shahbaz-CV"
+        ),
+      ], "Document"),
     ],
   },
   {
