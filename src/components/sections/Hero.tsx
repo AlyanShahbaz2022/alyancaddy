@@ -129,6 +129,7 @@ export default function Hero({ hero, socials, name }: HeroProps) {
               width={720}
               height={900}
               loading="eager"
+              fetchPriority="high"
               className="h-[280px] w-full object-cover object-top sm:h-[440px] lg:h-[560px]"
             />
           </div>

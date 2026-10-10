@@ -121,7 +121,7 @@ export default function DocumentsPanel({
 
             <div className="flex-1 space-y-7 overflow-y-auto px-6 py-6">
               {groups.length === 0 ? (
-                <p className="text-sm text-muted">No documents yet.</p>
+                <p className="text-sm text-muted">No documents uploaded yet — check back soon.</p>
               ) : (
                 groups.map((group) => {
                   const Icon = categoryIcon(group.category);

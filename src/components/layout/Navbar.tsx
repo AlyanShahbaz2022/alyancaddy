@@ -36,8 +36,7 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
   const closeDocs = useCallback(() => setDocsOpen(false), []);
 
   const documentCount = documents.items.filter((item) => item.file.trim()).length;
-  const docsButton = (className?: string) =>
-    documentCount > 0 ? (
+  const docsButton = (className?: string) => (
       <button
         type="button"
         onClick={() => setDocsOpen(true)}
@@ -50,11 +49,13 @@ export default function Navbar({ logo, logoImage, links, hire, documents }: Navb
         )}
       >
         <FolderOpen size={20} />
-        <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-black">
-          {documentCount}
-        </span>
+        {documentCount > 0 ? (
+          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-black">
+            {documentCount}
+          </span>
+        ) : null}
       </button>
-    ) : null;
+    );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
